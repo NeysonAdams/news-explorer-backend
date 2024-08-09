@@ -5,8 +5,10 @@ const articles = require("./articles");
 const { NotFoundError } = require("../utils/errors");
 const auth = require('../middlewares/auth');
 
-router.post('/signin',login);
-router.post('/signup', createUser);
+const { validateCreateUser, validateLogin } = require('../middlewares/validation');
+
+router.post('/signin', validateLogin, login);
+router.post('/signup', validateCreateUser, createUser);
 
 router.use(auth);
 router.use("/users", userRouter);

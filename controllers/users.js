@@ -19,7 +19,7 @@ const createUser = (req, res, next) => {
   const { name, email, password} = req.body;
 
   if (!name ||!email || !password) {
-    throw new BadRequestError(`Missing required fields: [ ${!name?"name, ":""}${!avatar?"avatar, ":""}${!email?"email, ":""}${!password?"password ":""}]`);
+    throw new BadRequestError(`Missing required fields: [ ${!name?"name, ":""}${!email?"email, ":""}${!password?"password ":""}]`);
   }
 
   return  User.findOne({email})

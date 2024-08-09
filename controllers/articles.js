@@ -1,10 +1,12 @@
-const { ForbiddenError } = require("../utils/errors");
+const { ForbiddenError, NotFoundError, BadRequestError } = require("../utils/errors");
 const Articles = require("../models/article");
 
+
 const getArticles = (req, res, next) => {
-  Articles.find()
-  .then(items => res.send(items))
-  .catch(next);
+  Articles
+    .find({ owner: req.user._id})
+    .then(articles => res.send(articles))
+    .catch(next);
 }
 
 const saweArticle = (req, res, next) =>
@@ -18,13 +20,13 @@ const saweArticle = (req, res, next) =>
 
 const deleteArticle = (req, res, next) => {
 
-  Articles.findById(req.params.id)
-  .orFail()
+  Articles.findById(req.params.id).select("+owner")
+  .orFail(new NotFoundError('Article not found'))
     .then(item=>{
       if(!item.owner.equals(req.user._id))
         throw new ForbiddenError('Forbidden: You do not have permission to delete this item')
 
-      return ClothingItem.findByIdAndDelete(req.params.id)
+      return Articles.findByIdAndDelete(req.params.id)
         .then(()=> res.send({ message: 'Item deleted successfully' }))
     })
     .catch(next);

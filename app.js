@@ -5,17 +5,18 @@ const cors = require("cors");
 const { errors } = require('celebrate');
 const mainRouter = require("./routes/index");
 
-
+const {errorHandler} = require('./middlewares/error-handler');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const app = express();
 const {PORT = 3001} = process.env
+const {DBPATH = 'mongodb://127.0.0.1:27017/news_db'} = process.env
 
 app.use(express.json());
 app.use(cors());
 
 
-mongoose.connect('mongodb://127.0.0.1:27017/wtwr_db', {
+mongoose.connect(DBPATH, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
@@ -27,8 +28,8 @@ mongoose.connect('mongodb://127.0.0.1:27017/wtwr_db', {
 app.use(requestLogger);
 app.use("/", mainRouter);
 app.use(errorLogger);
-app.use(errors());
 app.use(errorHandler);
+app.use(errors());
 app.listen(PORT, ()=>{
   console.log(`Server is running on port ${PORT}`);
 })
