@@ -1,4 +1,4 @@
-const { ForbiddenError, NotFoundError, BadRequestError } = require("../utils/errors");
+const { ForbiddenError, NotFoundError } = require("../utils/errors");
 const Articles = require("../models/article");
 
 

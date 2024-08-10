@@ -28,8 +28,8 @@ mongoose.connect(DBPATH, {
 app.use(requestLogger);
 app.use("/", mainRouter);
 app.use(errorLogger);
-app.use(errorHandler);
 app.use(errors());
+app.use(errorHandler);
 app.listen(PORT, ()=>{
   console.log(`Server is running on port ${PORT}`);
 })

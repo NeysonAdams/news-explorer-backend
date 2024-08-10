@@ -36,24 +36,23 @@ const validateLogin = celebrate({
       "string.empty": 'The "password" field must be filled in',
     }),
   })
-});
-//{ , , , date, source, link, image }
-//Validation sawe article
+})
+
 const validateSaweArticle = celebrate({
   body:Joi.object().keys({
-    keyword: Joi.string().required().message({
+    keyword: Joi.string().required().messages({
       "string.empty": 'The "keyword" can`t be empty',
     }),
-    title: Joi.string().required().message({
+    title: Joi.string().required().messages({
       "string.empty": 'The "keyword" can`t be empty',
     }),
-    text: Joi.string().required().message({
+    text: Joi.string().required().messages({
       "string.empty": 'The "keyword" can`t be empty',
     }),
-    date: Joi.string().required().date().message({
+    date: Joi.string().required().messages({
       "string.empty": 'The "keyword" can`t be empty',
     }),
-    source: Joi.string().required().message({
+    source: Joi.string().required().messages({
       "string.empty": 'The "keyword" can`t be empty',
     }),
     link: Joi.string().required().custom(validateURL).messages({
