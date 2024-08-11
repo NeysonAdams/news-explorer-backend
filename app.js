@@ -9,7 +9,7 @@ const {errorHandler} = require('./middlewares/error-handler');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const app = express();
-const {PORT = 3001} = process.env
+const {PORT = 3002} = process.env
 const {DBPATH = 'mongodb://127.0.0.1:27017/news_db'} = process.env
 
 app.use(express.json());

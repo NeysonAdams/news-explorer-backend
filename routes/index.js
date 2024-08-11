@@ -15,6 +15,7 @@ router.use("/users", userRouter);
 router.use("/articles", articles);
 
 router.use((req, res, next) => {
+  console.log(req.originalUrl);
   next(new NotFoundError('Requested resource not found'));
 });
 
